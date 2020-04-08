@@ -85,13 +85,13 @@ var MultiOptionsPolyline = L.FeatureGroup.extend({
                 // Check if options is a function or an array
                 if (typeof multiOptions.options === "function") {
                     if (this._arrowHeads) {
-                        this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)).arrowheads());
+                        this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)).arrowheads(this._arrowHeads));
                     } else {
                         this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)));
                     }
                 } else {
                     if (this._arrowHeads) {
-                        this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]).arrowheads());
+                        this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]).arrowheads(this._arrowHeads));
                     } else {
                         this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]));
                     }
