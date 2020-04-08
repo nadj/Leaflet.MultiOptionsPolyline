@@ -28,6 +28,12 @@ var MultiOptionsPolyline = L.FeatureGroup.extend({
 
         this._layers = {};
         this._options = options;
+        this._arrowHeads = false;
+
+        if (this._options.hasOwnProperty('arrowheads')) {
+            this._arrowHeads = this._options.arrowheads;
+        }
+
         if (copyBaseOptions === undefined || copyBaseOptions) {
             this._copyBaseOptions();
         }
@@ -78,9 +84,17 @@ var MultiOptionsPolyline = L.FeatureGroup.extend({
             if (prevOptionIdx !== optionIdx || i === len - 1) {
                 // Check if options is a function or an array
                 if (typeof multiOptions.options === "function") {
-                    this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)));
+                    if (this._arrowHeads) {
+                        this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)).arrowheads());
+                    } else {
+                        this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)));
+                    }
                 } else {
-                    this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]));
+                    if (this._arrowHeads) {
+                        this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]).arrowheads());
+                    } else {
+                        this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]));
+                    }
                 }
 
                 prevOptionIdx = optionIdx;
